@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 638755 */
+  src: url('//at.alicdn.com/t/font_638755_4r53iuxyj3t2zkt9.eot');
+  src: url('//at.alicdn.com/t/font_638755_4r53iuxyj3t2zkt9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_638755_4r53iuxyj3t2zkt9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_638755_4r53iuxyj3t2zkt9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_638755_4r53iuxyj3t2zkt9.svg#iconfont') format('svg');
+}
+
+[class^='icon-'],
+[class*='icon-'] {
+  font-family: 'iconfont';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none
+}
+
+.icon-menu:before {
+  content: '\e699';
+}
+.icon-menuActive:before {
+  content: '\e69a';
+}
+.icon-user:before {
+  content: '\e6af';
+}
+.icon-all:before {
+  content: '\e696';
+}
+.icon-favorite:before {
+  content: '\e6a0';
+}
+.icon-skip:before {
+  content: '\e718';
+}
+.icon-help:before {
+  content: '\e6a3';
+}
+.icon-lights:before {
+  content: '\e6de';
+}
+.icon-comments:before {
+  content: '\e69b';
+}
+
+
