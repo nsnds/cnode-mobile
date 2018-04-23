@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <m-header></m-header>
-    <router-view/>
     <m-Menu></m-Menu>
+    <router-view/>
     <m-shade></m-shade>
   </div>
 </template>
@@ -29,6 +29,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding: 45px 0 0 0;
 }
 </style>

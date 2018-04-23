@@ -1,6 +1,8 @@
 <template>
   <div class="header-box">
-    <div class="left" @click="toggle"><i :class="menuShow ? 'icon-menuActive' : 'icon-menu'"></i></div>
+    <div class="left" @click="toggle">
+      <i :class="menuShow ? 'icon-menuActive' : 'icon-menu'"></i>
+    </div>
     <div class="center">
       <img class="logo" src="../common/image/vue-logo.png">
       <p class="text">全部</p>
@@ -26,13 +28,19 @@ export default {
   methods: {
     toggle () {
       let _menuShow = this.menuShow
-      let 
-      if () {}
+
+      if (_menuShow) {
+        this.setShadeShow(false)
+        this.setMenuShow(false)
+      } else {
+        this.setShadeShow(true)
+        this.setMenuShow(true)
+      }
     },
-    ...mapMutations[{
+    ...mapMutations({
       setShadeShow: 'SET_SHADE_SHOW',
       setMenuShow: 'SET_MENU_SHOW'
-    }]
+    })
   }
 }
 </script>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Topics from 'components/Topics'
+import Index from 'components/index'
 import Search from 'components/Search'
 import My from 'components/My'
 
@@ -10,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Topics',
-      component: Topics
+      name: 'Index',
+      component: Index
     },
     {
       path: '/Search',

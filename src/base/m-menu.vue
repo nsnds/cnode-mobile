@@ -1,10 +1,16 @@
 <template>
-  <ul class="menu-box" v-if="menuShow">
+  <transition name="menu">
+    <ul class="menu-box" v-if="menuShow">
     <li class="login">
       <i class="icon-user"></i>
       <p class="text">登录</p>
     </li>
-    <li class="item" v-for="(i, x) in list" :key="x">
+    <li class="item"
+      v-for="(i, x) in list"
+      :key="x"
+      :class="i.link === Status ? 'active' : ''"
+      @click="to(i.link)"
+    >
       <i :class="i.icon"></i>
       <p class="text">{{i.text}}</p>
     </li>
@@ -13,6 +19,7 @@
       <p class="text">消息</p>
     </li>
   </ul>
+  </transition>
 </template>
 
 <script>
@@ -22,28 +29,40 @@ export default {
   data () {
     return {
       list: [
-        { text: '全部', icon: 'icon-all' },
-        { text: '精华', icon: 'icon-favorite' },
-        { text: '分享', icon: 'icon-skip' },
-        { text: '问答', icon: 'icon-help' },
-        { text: '招聘', icon: 'icon-lights' }
+        { text: '全部', icon: 'icon-all', link: 'all' },
+        { text: '精华', icon: 'icon-favorite', link: 'good' },
+        { text: '分享', icon: 'icon-skip', link: 'share' },
+        { text: '问答', icon: 'icon-help', link: 'ask' },
+        { text: '招聘', icon: 'icon-lights', link: 'job' }
       ],
       currentListIdx: 0
     }
   },
   computed: {
+    Status () {
+      return this.$route.query.status
+    },
     ...mapGetters([
       'menuShow'
     ])
   },
   methods: {
-    to () {
+    to (link) {
+      this.$router.push({
+        path: `/?status=${link}`
+      })
     }
   }
 }
 </script>
 
 <style scoped>
+  .menu-enter-active, .menu-leave-active {
+    transition: all 0.3s
+  }
+  .menu-enter, .menu-leave-to {
+    transform: translate3d(-100%, 0, 0)
+  }
   .menu-box {
     position: fixed;
     top: 45px;
@@ -74,6 +93,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .menu-box .item.active {
+    color: rgb(65, 184, 131);
   }
   .menu-box .item i {
     font-size: 17px;

@@ -1,1 +1,5 @@
-const RES_CODE = 0
+const baseUrl = 'https://cnodejs.org/api/v1'
+
+export {
+  baseUrl
+}

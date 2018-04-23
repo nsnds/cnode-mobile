@@ -1,5 +1,7 @@
 <template>
-  <div v-if="shadeShow" class="shade-box"></div>
+  <transition name="fade">
+    <div v-if="shadeShow" class="shade-box" @click="tapShade"></div>
+  </transition>
 </template>
 
 <script>
@@ -8,12 +10,22 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
+      'menuShow',
       'shadeShow'
     ])
   },
   methods: {
+    tapShade () {
+      let _menuShow = this.menuShow
+
+      if (_menuShow) {
+        this.setShadeShow(false)
+        this.setMenuShow(false)
+      }
+    },
     ...mapMutations({
-      setShadeShow: 'SET_SHADE_SHOW'
+      setShadeShow: 'SET_SHADE_SHOW',
+      setMenuShow: 'SET_MENU_SHOW'
     })
   }
 }
@@ -29,5 +41,11 @@ export default {
     z-index: 3340;
 
     background-color: rgba(0, 0, 0, 0.4)
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: all .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>
