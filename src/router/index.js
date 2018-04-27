@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from 'components/index'
-import Search from 'components/Search'
-import My from 'components/My'
+import Index from 'components/index/index'
+import Login from 'components/login/login'
+import User from 'components/user/user'
 
 Vue.use(Router)
 
@@ -14,14 +14,14 @@ export default new Router({
       component: Index
     },
     {
-      path: '/Search',
-      name: 'Search',
-      component: Search
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
-      path: '/My',
-      name: 'My',
-      component: My
+      path: '/user',
+      name: 'user',
+      component: User
     }
   ]
 })

@@ -11,16 +11,19 @@
           <p class="text">{{item.title}}</p>
         </h3>
         <div class="info">
-          <img class="author-avatar" :src="item.author.avatar_url">
+          <img class="author-avatar"
+               v-lazy="item.author.avatar_url"
+               @click="to(`/user?name=${item.author.loginname}`)"
+          >
           <div class="author-info">
-            <span class="name">{{item.author.loginname}}</span>
-            <span class="time">{{item.create_at | time}}</span>
+            <span class="name" title="发布人">{{item.author.loginname}}</span>
+            <span class="time" title="发布时间">{{item.create_at | time}}</span>
           </div>
           <div class="participation-info">
             <!-- 回复数/查看数 -->
-            <span class="num">{{item.reply_count}}/{{item.visit_count}}</span>
+            <span class="num" title="回复/查看">{{item.reply_count}} / {{item.visit_count}}</span>
             <!-- 最新回复时间 -->
-            <span class="time">{{item.last_reply_at | time}}</span>
+            <span class="time" title="最近回复时间">{{item.last_reply_at | time}}</span>
           </div>
         </div>
       </li>
@@ -35,11 +38,6 @@ export default {
   data () {
     return {
       list: []
-    }
-  },
-  filters: {
-    time (val) {
-      return val.split('.')[0].split('T').join(' ')
     }
   },
   mounted () {
@@ -93,6 +91,10 @@ export default {
           }
         }
       })
+    },
+    to (path) {
+      if (typeof path !== 'string') return
+      this.$router.push(path)
     }
   },
   watch: {
@@ -149,6 +151,30 @@ export default {
     height: 40px;
     border-radius: 50%;
   }
-
+  .index-box .list .item .info .author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1 1 auto;
+    margin: 0 0 0 10px;
+    color: #778087;
+    font-size: 13px;
+  }
+  .index-box .list .item .info .author-info .name {
+    margin: 0 0 5px 0;
+  }
+  .index-box .list .item .info .participation-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    flex: 1 1 auto;
+    font-size: 13px;
+    color: #778087;
+  }
+  .index-box .list .item .info .participation-info .num {
+    margin: 0 0 5px 0;
+  }
 
 </style>

@@ -1,9 +1,13 @@
 <template>
   <transition name="menu">
     <ul class="menu-box" v-if="menuShow">
-    <li class="login">
+    <li class="login" v-if="!loginInfo" @click="$router.push('/login')">
       <i class="icon-user"></i>
       <p class="text">登录</p>
+    </li>
+    <li class="user" v-else @click="$router.push(`/user?name=${loginInfo.loginname}`)">
+      <img class="avatar" :src="loginInfo.avatar_url">
+      <p class="text">{{loginInfo.loginname}}</p>
     </li>
     <li class="item"
       v-for="(i, x) in list"
@@ -43,7 +47,8 @@ export default {
       return this.$route.query.status
     },
     ...mapGetters([
-      'menuShow'
+      'menuShow',
+      'loginInfo'
     ])
   },
   methods: {
@@ -87,6 +92,23 @@ export default {
   }
   .menu-box .login .text {
     font-size: 25px;
+  }
+  .menu-box .user {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .menu-box .user .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 30px;
+  }
+  .menu-box .user .text {
+    font-size: 16px;
+    margin-left: 9px;
   }
   .menu-box .item {
     height: 50px;
