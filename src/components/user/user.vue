@@ -25,12 +25,34 @@
     </div>
     <div class="more">
       <h2 class="title">最近发布</h2>
-      <ul class="content">
-        <li v-for="item in userInfo.recent_topics"></li>
+      <ul class="default">
+        <li v-for="(item, index) in userInfo.recent_topics" :key="index">
+          <img class="avatar" :src="item.author.avatar_url">
+          <div class="content">
+            <p class="title">{{item.title}}</p>
+            <p class="row-2">
+              <!-- 作者 -->
+              <span class="author">{{item.author.loginname}}</span>
+              <!-- 最近回复时间 -->
+              <span class="time">{{item.last_reply_at}}</span>
+            </p>
+          </div>
+        </li>
       </ul>
       <h2 class="title">最近参与</h2>
-      <ul class="content">
-        <li v-for="item in userInfo.recent_replies"></li>
+      <ul class="default">
+        <li v-for="item in userInfo.recent_replies">
+          <img class="avatar" :src="item.author.avatar_url">
+          <div class="content">
+            <p class="title">{{item.title}}</p>
+            <p class="row-2">
+              <!-- 作者 -->
+              <span class="author">{{item.author.loginname}}</span>
+              <!-- 最近回复时间 -->
+              <span class="time">{{item.last_reply_at}}</span>
+            </p>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
@@ -119,11 +141,51 @@ export default {
   text-align: right;
 }
 .user-box .more {
-  margin: 10px 0 0 0;
+  
 }
 .user-box .more > .title {
-  font-size: 18px;
-  padding: 10px 15px;
+  font-size: 16px;
+  padding: 15px 15px;
   text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+}
+.user-box .more > .default {
+
+}
+.user-box .more > .default li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+.user-box .more > .default li .avatar {
+  width: 45px;
+  height: 45px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid #e5e5e5;
+}
+.user-box .more > .default li .content {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 0 10px;
+}
+.user-box .more > .default li .content .title {
+  width: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+.user-box .more > .default li .content .row-2 {
+  display: flex;
+  justify-content: space-between;
+  flex: 1 1 auto;
+
+  
 }
 </style>
