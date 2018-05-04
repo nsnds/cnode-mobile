@@ -33,6 +33,7 @@
 
 <script>
 import { getList } from 'api/index'
+import BScroll from 'better-scroll'
 
 export default {
   data () {
@@ -54,6 +55,12 @@ export default {
       }
       this.list = []
       this.searchData(obj)
+    },
+    initBscroll () {
+      let wrapper = document.querySelector('.index-box')
+      this.scroll = new BScroll(wrapper, {
+        probeType: 1
+      })
     },
     searchData (obj) {
       // let _this = this
@@ -98,13 +105,22 @@ export default {
     }
   },
   watch: {
-    '$route': 'initData'
+    '$route': 'initData',
+    list (n, o) {
+      this.initBscroll()
+    }
   }
 }
 </script>
 
 <style scoped>
-  .index-box {}
+  .index-box {
+    position: fixed;
+    width: 100%;
+    top: 45px;
+    bottom: 0;
+    overflow: hidden;
+  }
   .index-box .list {
     font-size: 16px;
   }

@@ -41,7 +41,7 @@
       </ul>
       <h2 class="title">最近参与</h2>
       <ul class="default">
-        <li v-for="item in userInfo.recent_replies">
+        <li v-for="(item, index) in userInfo.recent_replies" :key="index">
           <img class="avatar" :src="item.author.avatar_url">
           <div class="content">
             <p class="title">{{item.title}}</p>
@@ -141,7 +141,6 @@ export default {
   text-align: right;
 }
 .user-box .more {
-  
 }
 .user-box .more > .title {
   font-size: 16px;
@@ -150,13 +149,21 @@ export default {
   border-bottom: 1px solid #e5e5e5;
 }
 .user-box .more > .default {
-
+  border-bottom: 1px solid #e5e5e5;
 }
 .user-box .more > .default li {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
+}
+.user-box .more > .default li:after {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  border-bottom: 1px dashed #e5e5e5;
+  width: 92%;
 }
 .user-box .more > .default li .avatar {
   width: 45px;
@@ -185,7 +192,5 @@ export default {
   display: flex;
   justify-content: space-between;
   flex: 1 1 auto;
-
-  
 }
 </style>
