@@ -1,7 +1,11 @@
 <template>
   <div class="index-box">
     <ul class="list">
-      <li class="item" v-for="(item, idx) in list" :key="idx">
+      <li class="item"
+          v-for="(item, idx) in list"
+          :key="idx"
+          @click.stop="to(`/topics?id=${item.id}`)"
+      >
         <h3 class="title">
           <span
             :class="['tip' ,item.tipName === '置顶' || item.tipName === '精华' ? 'active' : '']"
@@ -13,7 +17,7 @@
         <div class="info">
           <img class="author-avatar"
                v-lazy="item.author.avatar_url"
-               @click="to(`/user?name=${item.author.loginname}`)"
+               @click.stop="to(`/user?name=${item.author.loginname}`)"
           >
           <div class="author-info">
             <span class="name" title="发布人">{{item.author.loginname}}</span>

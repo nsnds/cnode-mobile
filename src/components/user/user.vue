@@ -24,9 +24,14 @@
       </ul>
     </div>
     <div class="more">
-      <h2 class="title">最近发布</h2>
+      <h2 class="title">
+        <p class="left">最近发布</p>
+        <p class="right" @click="topicsAllShow = !topicsAllShow">
+          {{topicsAllShow ? '收起' : '更多&gt;&gt;'}}
+        </p>
+      </h2>
       <ul class="default">
-        <li v-for="(item, index) in userInfo.recent_topics" :key="index">
+        <li v-for="(item, index) in topics" :key="index">
           <img class="avatar" :src="item.author.avatar_url">
           <div class="content">
             <p class="title">{{item.title}}</p>
@@ -34,14 +39,19 @@
               <!-- 作者 -->
               <span class="author">{{item.author.loginname}}</span>
               <!-- 最近回复时间 -->
-              <span class="time">{{item.last_reply_at}}</span>
+              <span class="time">{{item.last_reply_at | time}}</span>
             </p>
           </div>
         </li>
       </ul>
-      <h2 class="title">最近参与</h2>
+      <h2 class="title">
+        <p class="left">最近参与</p>
+        <P class="right" @click="repliesAllShow = !repliesAllShow">
+          {{repliesAllShow ? '收起' : '更多&gt;&gt;'}}
+        </P>
+      </h2>
       <ul class="default">
-        <li v-for="(item, index) in userInfo.recent_replies" :key="index">
+        <li v-for="(item, index) in replies" :key="index">
           <img class="avatar" :src="item.author.avatar_url">
           <div class="content">
             <p class="title">{{item.title}}</p>
@@ -49,7 +59,7 @@
               <!-- 作者 -->
               <span class="author">{{item.author.loginname}}</span>
               <!-- 最近回复时间 -->
-              <span class="time">{{item.last_reply_at}}</span>
+              <span class="time">{{item.last_reply_at | time}}</span>
             </p>
           </div>
         </li>
@@ -66,13 +76,35 @@ export default {
   name: 'user',
   data () {
     return {
-      userInfo: {}
+      userInfo: {},
+      topicsAllShow: false,
+      repliesAllShow: false
     }
   },
   computed: {
     ...mapGetters([
       'loginInfo'
-    ])
+    ]),
+    topics () {
+      if (this.userInfo.recent_topics === undefined) {
+        return []
+      }
+      if (this.topicsAllShow) {
+        return this.userInfo.recent_topics
+      } else {
+        return this.userInfo.recent_topics.slice(0, 3)
+      }
+    },
+    replies () {
+      if (this.userInfo.recent_replies === undefined) {
+        return []
+      }
+      if (this.repliesAllShow) {
+        return this.userInfo.recent_replies
+      } else {
+        return this.userInfo.recent_replies.slice(0, 3)
+      }
+    }
   },
   mounted () {
     this.initData()
@@ -143,10 +175,17 @@ export default {
 .user-box .more {
 }
 .user-box .more > .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 16px;
   padding: 15px 15px;
-  text-align: left;
+  /*text-align: left;*/
   border-bottom: 1px solid #e5e5e5;
+}
+.user-box .more > .title .right {
+  font-size: 14px;
+  color: rgb(65, 184, 131);
 }
 .user-box .more > .default {
   border-bottom: 1px solid #e5e5e5;
@@ -191,6 +230,9 @@ export default {
 .user-box .more > .default li .content .row-2 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0 0 0;
   flex: 1 1 auto;
 }
 </style>
