@@ -143,6 +143,9 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+.markdown-text img {
+  width: 100%;
+}
 .markdown-text blockquote,
 .markdown-text dl,
 .markdown-text ol,

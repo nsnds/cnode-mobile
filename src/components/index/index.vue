@@ -32,43 +32,62 @@
         </div>
       </li>
     </ul>
+    <div v-infinite-scroll="searchData"
+         infinite-scroll-disabled ="busy"
+         infinite-scroll-distance="33"
+    ></div>
   </div>
 </template>
 
 <script>
 import { getList } from 'api/index'
-import BScroll from 'better-scroll'
+// import BScroll from 'better-scroll'
 
 export default {
   data () {
     return {
-      list: []
+      list: [],
+      idx: 1,
+      size: 15,
+      busy: true
     }
   },
   mounted () {
+    // this.scrollFinish = true
     this.initData()
+    // this.initBscroll()
   },
   methods: {
     initData () {
-      let status = this.$route.query.status
-      if (status === undefined) status = 'all'
-      let obj = {
-        page: 1,
-        tab: status,
-        limit: 10
-      }
+      this.status = this.$route.query.status
+      if (this.status === undefined) this.status = 'all'
+      this.idx = 1
       this.list = []
-      this.searchData(obj)
+      this.searchData()
     },
-    initBscroll () {
-      let wrapper = document.querySelector('.index-box')
-      this.scroll = new BScroll(wrapper, {
-        probeType: 1
-      })
-    },
-    searchData (obj) {
+    // initBscroll () {
+    //   let wrapper = document.querySelector('.index-box')
+    //   this.scroll = new BScroll(wrapper, {
+    //     probeType: 1,
+    //     pullUpLoad: {
+    //       threshold: -20
+    //     }
+    //   })
+
+    //   // 上拉加载
+    //   this.scroll.on('pullingUp', () => {
+    //     this.searchData(obj)
+    //   })
+    // },
+    searchData () {
+      this.busy = true
+      const params = {
+        page: this.idx,
+        tab: this.status,
+        limit: this.size
+      }
       // let _this = this
-      getList(obj).then(res => {
+      getList(params).then(res => {
         // console.log(res)
         if (res.success) {
           for (let item of res.data) {
@@ -97,8 +116,12 @@ export default {
                 _tipName = '招聘'
                 break
             }
-            let obj = Object.assign(item, {tipName: _tipName})
-            this.list.push(obj)
+            let i = Object.assign(item, {tipName: _tipName})
+            this.list.push(i)
+          }
+          if (res.data.length) {
+            this.busy = false
+            this.idx++
           }
         }
       })
@@ -109,20 +132,17 @@ export default {
     }
   },
   watch: {
-    '$route': 'initData',
-    list (n, o) {
-      this.initBscroll()
-    }
+    '$route': 'initData'
   }
 }
 </script>
 
 <style scoped>
   .index-box {
-    position: fixed;
+    /*position: fixed;
     width: 100%;
     top: 45px;
-    bottom: 0;
+    bottom: 0;*/
     overflow: hidden;
   }
   .index-box .list {

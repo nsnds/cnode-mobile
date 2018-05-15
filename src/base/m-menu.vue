@@ -18,7 +18,7 @@
       <i :class="i.icon"></i>
       <p class="text">{{i.text}}</p>
     </li>
-    <li class="item comments">
+    <li class="item comments" v-show="false">
       <i class="icon-comments"></i>
       <p class="text">消息</p>
     </li>

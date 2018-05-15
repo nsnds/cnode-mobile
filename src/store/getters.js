@@ -9,3 +9,6 @@ export const accessToken = state => state.accessToken
 
 // 登录信息
 export const loginInfo = state => state.loginInfo
+
+// 未读消息长度
+export const messageCount = state => state.messageCount

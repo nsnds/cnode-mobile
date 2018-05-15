@@ -15,6 +15,9 @@ const mutations = {
   [types.SET_LOGIN_INFO] (state, obj) {
     Storage('loginInfo', obj)
     state.loginInfo = obj
+  },
+  [types.SET_MESSAGE_COUNT] (state, count) {
+    state.messageCount = count
   }
 }
 

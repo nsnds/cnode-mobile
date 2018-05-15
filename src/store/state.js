@@ -11,7 +11,10 @@ const state = {
   accessToken: Storage('accessToken'),
 
   // 登录信息
-  loginInfo: Storage('loginInfo')
+  loginInfo: Storage('loginInfo'),
+
+  // 未读消息长度
+  messageCount: 0
 }
 
 export default state
